@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Sistema de diseño — Dominican Flow
+   Fondo claro, azul como color principal, acentos naranja / rosa / verde.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-ink: #0e1726;
+  --color-ink-2: #334155;
+  --color-muted: #5b6678;
+  --color-line: #e6e9ef;
+  --color-line-strong: #d3d8e2;
+  --color-canvas: #f6f7f9;
+  --color-surface: #ffffff;
+
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe6ff;
+  --color-brand-200: #bfd3ff;
+  --color-brand-300: #93b4ff;
+  --color-brand-400: #5f8bff;
+  --color-brand-500: #3567f5;
+  --color-brand-600: #2251e0;
+  --color-brand-700: #1b41b8;
+  --color-brand-800: #1b3992;
+  --color-brand-900: #182f6e;
+
+  --color-sun-50: #fff5ec;
+  --color-sun-100: #ffe6cf;
+  --color-sun-500: #f97316;
+  --color-sun-600: #e05f0a;
+  --color-sun-700: #b84a09;
+
+  --color-rose-50: #fff0f6;
+  --color-rose-100: #ffe0ee;
+  --color-rose-500: #e83e8c;
+  --color-rose-600: #cf2a76;
+  --color-rose-700: #a91f5f;
+
+  --color-palm-50: #ecfbf3;
+  --color-palm-100: #d1f5e1;
+  --color-palm-500: #16a34a;
+  --color-palm-600: #12863d;
+  --color-palm-700: #106b33;
+
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-card: 0 1px 2px rgb(14 23 38 / 0.04), 0 4px 16px -6px rgb(14 23 38 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(14 23 38 / 0.05), 0 16px 32px -12px rgb(14 23 38 / 0.18);
+  --shadow-focus: 0 0 0 4px rgb(53 103 245 / 0.18);
+
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: -400px 0;
+    }
+    to {
+      background-position: 400px 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-feature-settings: "ss01", "cv11";
+    min-height: 100dvh;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply tracking-tight text-ink;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  /* iOS Safari: evita el zoom automático al enfocar campos (mínimo 16px) */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    input,
+    select,
+    textarea {
+      font-size: 15px;
+    }
+  }
+  ::selection {
+    background: var(--color-brand-100);
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl;
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  @media (min-width: 640px) {
+    .container-page {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+  .card-hover {
+    @apply transition duration-200 ease-out hover:-translate-y-0.5 hover:border-line-strong hover:shadow-lift;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.14em] text-brand-600;
+  }
+  .prose-df p {
+    @apply mb-4 leading-relaxed text-ink-2;
+  }
+  .prose-df h2 {
+    @apply mt-8 mb-3 text-xl font-bold;
+  }
+  .prose-df ul {
+    @apply mb-4 list-disc space-y-1 pl-5 text-ink-2;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, #eef0f4 0px, #f6f7f9 160px, #eef0f4 320px);
+    background-size: 800px 100%;
+    @apply animate-shimmer rounded-xl;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
